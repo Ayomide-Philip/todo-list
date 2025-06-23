@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import TodoInputSection from "./componet/todoInputSection";
 import { useEffect } from "react";
 export default function Home() {
-  const [newTask, setNewTask] = useState(null);
+  const [newTask, setNewTask] = useState("");
   const [task, addNewTaskFromBtn] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Home() {
   }, [task]);
 
   function addTask() {
-    if (newTask !== null) {
+    if (newTask !== "") {
       const addNewTask = { id: task.length + 1, task: newTask };
       addNewTaskFromBtn((task) => [...task, addNewTask]);
     }
@@ -50,7 +50,11 @@ export default function Home() {
         ✨ TODO-List
       </h1>
 
-      <TodoInputSection setNewTask={setNewTask} addTask={addTask} />
+      <TodoInputSection
+        setNewTask={setNewTask}
+        addTask={addTask}
+        newTask={newTask}
+      />
 
       <div id="taskList" className="space-y-3 mb-6">
         {task.map(({ id, task, checked }) => {
