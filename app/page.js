@@ -102,7 +102,7 @@ export default function Home() {
                 />
                 <span
                   className={`text-lg ${
-                    checked ? "line-through text-gray-400" : ""
+                    checked ? "line-through text-gray-200" : ""
                   }`}
                 >
                   {task}
