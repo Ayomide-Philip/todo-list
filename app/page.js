@@ -36,6 +36,7 @@ export default function Home() {
       toast.success("Task sucessfully added.");
       setNewTask("");
     } else {
+      toast.dismiss();
       toast.warning("Add a new task");
     }
   }
