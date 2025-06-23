@@ -23,6 +23,7 @@ export default function Home() {
   }
 
   function addTask() {
+    toast.loading("Adding new Task");
     if (newTask !== "") {
       const addNewTask = {
         id: task.length + 1,
@@ -31,6 +32,7 @@ export default function Home() {
         time: getCurrentTime(),
       };
       addNewTaskFromBtn((task) => [...task, addNewTask]);
+      toast.dismiss();
       toast.success("Task sucessfully added.");
       setNewTask("");
     } else {
@@ -72,7 +74,7 @@ export default function Home() {
       <ToastContainer />
       <div className="max-w-2xl w-full p-6 mx-auto bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-2xl shadow-md transition-all duration-300">
         <h1 className="text-4xl font-mono font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500">
-          ✨ TODO-List
+          ✨ TO-DO List
         </h1>
 
         <TodoInputSection
