@@ -54,10 +54,17 @@ export default function Home() {
     const numberDone = task.filter((user) => user.checked === true);
     return numberDone.length;
   }
+  function checkIftheIdISChecked(id) {
+    const numberDone = task.find((user) => user.id === id);
+    if (!numberDone.checked === true) {
+      toast.success(`You finished your task at ${getCurrentTime()}`);
+    }
+  }
 
   function deleteElement(id) {
     const updatedTask = task.filter((user) => user.id !== id);
     addNewTaskFromBtn(updatedTask);
+    toast.error("You have deleted this task");
   }
 
   return (
@@ -80,11 +87,13 @@ export default function Home() {
               key={id}
               className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-400 transition-all duration-300"
             >
-              {/* Task Section */}
               <div className="flex items-start sm:items-center flex-1">
                 <input
                   id={id}
-                  onChange={() => checkId({ id })}
+                  onChange={() => {
+                    checkId({ id });
+                    checkIftheIdISChecked(id);
+                  }}
                   defaultChecked={checked}
                   type="checkbox"
                   className="h-5 w-5 mt-1 sm:mt-0 mr-3 rounded border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-pink-500 focus:ring-pink-500"
@@ -100,13 +109,11 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Time Section */}
               <div className="flex justify-between items-center sm:justify-end sm:items-center w-full sm:w-auto">
                 <span className="bg-gray-200 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
                   {time}
                 </span>
 
-                {/* Delete Button */}
                 <button
                   id={id}
                   onClick={() => deleteElement(id)}
@@ -133,7 +140,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Summary Section */}
         <div className="p-5 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-3 text-center gap-4 text-sm">
             <div>
