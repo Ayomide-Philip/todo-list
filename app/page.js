@@ -16,8 +16,13 @@ export default function Home() {
   }, [task]);
 
   function addTask() {
-    const addNewTask = { id: task.length + 1, task: newTask };
-    addNewTaskFromBtn((task) => [...task, addNewTask]);
+    console.log(newTask);
+    if (newTask !== null) {
+      const addNewTask = { id: task.length + 1, task: newTask };
+      addNewTaskFromBtn((task) => [...task, addNewTask]);
+    } else {
+      alert("You didnt input anything");
+    }
   }
 
   function checkId(id) {
