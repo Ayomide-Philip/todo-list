@@ -19,8 +19,6 @@ export default function Home() {
     if (newTask !== null) {
       const addNewTask = { id: task.length + 1, task: newTask };
       addNewTaskFromBtn((task) => [...task, addNewTask]);
-    } else {
-      alert("You didnt input anything");
     }
   }
 
