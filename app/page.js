@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <>
       <ToastContainer />
-      <div className="max-w-2xl w-full p-6 mx-auto bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-2xl shadow-md transition-all duration-300">
+      <div className="max-w-2xl w-full p-6 mx-auto bg-gray-900 border  border-gray-700 rounded-2xl shadow-md transition-all duration-300">
         <h1 className="text-4xl font-mono font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500">
           ✨ TO-DO List
         </h1>
@@ -87,7 +87,7 @@ export default function Home() {
           {task.map(({ id, task, checked, time }) => (
             <div
               key={id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-400 transition-all duration-300"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-gray-800 border border-gray-700 hover:border-blue-400 transition-all duration-300"
             >
               <div className="flex items-start sm:items-center flex-1">
                 <input
@@ -98,13 +98,11 @@ export default function Home() {
                   }}
                   defaultChecked={checked}
                   type="checkbox"
-                  className="h-5 w-5 mt-1 sm:mt-0 mr-3 rounded border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-pink-500 focus:ring-pink-500"
+                  className="h-5 w-5 mt-1 sm:mt-0 mr-3 rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500"
                 />
                 <span
                   className={`text-lg ${
-                    checked
-                      ? "line-through text-gray-500 dark:text-gray-400"
-                      : ""
+                    checked ? "line-through text-gray-400" : ""
                   }`}
                 >
                   {task}
@@ -112,14 +110,14 @@ export default function Home() {
               </div>
 
               <div className="flex justify-between items-center sm:justify-end sm:items-center w-full sm:w-auto">
-                <span className="bg-gray-200 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
+                <span className="bg-gray-700 text-xs text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
                   {time}
                 </span>
 
                 <button
                   id={id}
                   onClick={() => deleteElement(id)}
-                  className="ml-3 text-gray-500 dark:text-gray-400 hover:text-pink-500 transition"
+                  className="ml-3 text-gray-400 hover:text-pink-500 transition"
                   title="Delete"
                 >
                   <svg
@@ -142,7 +140,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="p-5 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700">
+        <div className="p-5 rounded-xl bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700">
           <div className="grid grid-cols-3 text-center gap-4 text-sm">
             <div>
               <div
@@ -151,7 +149,7 @@ export default function Home() {
               >
                 {task.length - checkIfItsChecked()}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Pending</div>
+              <div className="text-gray-400">Pending</div>
             </div>
             <div>
               <div
@@ -160,7 +158,7 @@ export default function Home() {
               >
                 {checkIfItsChecked()}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Completed</div>
+              <div className="text-gray-400">Completed</div>
             </div>
             <div>
               <div
@@ -169,7 +167,7 @@ export default function Home() {
               >
                 {task.length}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Total</div>
+              <div className="text-gray-400">Total</div>
             </div>
           </div>
         </div>
