@@ -16,7 +16,6 @@ export default function Home() {
   }, [task]);
 
   function addTask() {
-    console.log(newTask);
     if (newTask !== null) {
       const addNewTask = { id: task.length + 1, task: newTask };
       addNewTaskFromBtn((task) => [...task, addNewTask]);
