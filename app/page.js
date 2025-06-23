@@ -17,9 +17,19 @@ export default function Home() {
     localStorage.setItem("tasks", JSON.stringify(task));
   }, [task]);
 
+  function getCurrentTime() {
+    const date = new Date().toLocaleString();
+    return date;
+  }
+
   function addTask() {
     if (newTask !== "") {
-      const addNewTask = { id: task.length + 1, task: newTask, checked: false };
+      const addNewTask = {
+        id: task.length + 1,
+        task: newTask,
+        checked: false,
+        time: getCurrentTime(),
+      };
       addNewTaskFromBtn((task) => [...task, addNewTask]);
       toast.success("Task sucessfully added.");
       setNewTask("");
@@ -30,8 +40,6 @@ export default function Home() {
 
   function checkId({ id }) {
     const specifyId = id;
-    // console.log(check);
-
     addNewTaskFromBtn((task) => {
       return task.map((user) => {
         if (user.id === specifyId) {
@@ -55,8 +63,8 @@ export default function Home() {
   return (
     <>
       <ToastContainer />
-      <div className="border border-gray-300 dark:border-gray-700 shadow-md max-w-2xl w-full p-6 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-300">
-        <h1 className="text-4xl font-mono font-extrabold text-center py-3 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500">
+      <div className="max-w-2xl w-full p-6 mx-auto bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-2xl shadow-md transition-all duration-300">
+        <h1 className="text-4xl font-mono font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500">
           ✨ TODO-List
         </h1>
 
@@ -66,39 +74,48 @@ export default function Home() {
           newTask={newTask}
         />
 
-        <div id="taskList" className="space-y-3 mb-6">
-          {task.map(({ id, task, checked }) => {
-            return (
-              <div
-                key={id}
-                className="flex items-center p-4 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:border-blue-400 transition-all duration-300"
-              >
-                <div className="flex items-center flex-1">
-                  <input
-                    id={id}
-                    onChange={(e) => {
-                      checkId({ id: id });
-                    }}
-                    defaultChecked={checked}
-                    type="checkbox"
-                    className="h-5 w-5 rounded border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 text-pink-500 focus:ring-pink-500 mr-3"
-                  />
-                  <span
-                    className={checked ? "text-lg line-through" : "text-lg"}
-                  >
-                    {task}
-                  </span>
-                </div>
+        <div id="taskList" className="space-y-4 my-6">
+          {task.map(({ id, task, checked, time }) => (
+            <div
+              key={id}
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-400 transition-all duration-300"
+            >
+              {/* Task Section */}
+              <div className="flex items-start sm:items-center flex-1">
+                <input
+                  id={id}
+                  onChange={() => checkId({ id })}
+                  defaultChecked={checked}
+                  type="checkbox"
+                  className="h-5 w-5 mt-1 sm:mt-0 mr-3 rounded border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-pink-500 focus:ring-pink-500"
+                />
+                <span
+                  className={`text-lg ${
+                    checked
+                      ? "line-through text-gray-500 dark:text-gray-400"
+                      : ""
+                  }`}
+                >
+                  {task}
+                </span>
+              </div>
+
+              {/* Time Section */}
+              <div className="flex justify-between items-center sm:justify-end sm:items-center w-full sm:w-auto">
+                <span className="bg-gray-200 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
+                  {time}
+                </span>
+
+                {/* Delete Button */}
                 <button
                   id={id}
-                  onClick={() => {
-                    deleteElement(id);
-                  }}
-                  className="text-gray-500 dark:text-gray-400 hover:text-pink-500 ml-2"
+                  onClick={() => deleteElement(id)}
+                  className="ml-3 text-gray-500 dark:text-gray-400 hover:text-pink-500 transition"
+                  title="Delete"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -112,13 +129,14 @@ export default function Home() {
                   </svg>
                 </button>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
-        <div className="p-4 rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 border border-gray-300 dark:border-gray-600">
-          <div className="flex justify-between text-sm">
-            <div className="text-center">
+        {/* Summary Section */}
+        <div className="p-5 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700">
+          <div className="grid grid-cols-3 text-center gap-4 text-sm">
+            <div>
               <div
                 id="pendingCount"
                 className="text-2xl font-bold text-pink-500"
@@ -127,7 +145,7 @@ export default function Home() {
               </div>
               <div className="text-gray-500 dark:text-gray-400">Pending</div>
             </div>
-            <div className="text-center">
+            <div>
               <div
                 id="completedCount"
                 className="text-2xl font-bold text-blue-500"
@@ -136,7 +154,7 @@ export default function Home() {
               </div>
               <div className="text-gray-500 dark:text-gray-400">Completed</div>
             </div>
-            <div className="text-center">
+            <div>
               <div
                 id="totalCount"
                 className="text-2xl font-bold text-purple-500"
