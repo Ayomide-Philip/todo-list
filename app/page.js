@@ -25,8 +25,14 @@ export default function Home() {
   function addTask() {
     toast.loading("Adding new Task");
     if (newTask !== "") {
+      var taskId = 0;
+      if (task.length == 0) {
+        taskId = 1;
+      } else {
+        taskId = task[task.length - 1].id + 1;
+      }
       const addNewTask = {
-        id: task.length + 1,
+        id: taskId,
         task: newTask,
         checked: false,
         time: getCurrentTime(),
