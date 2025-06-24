@@ -63,6 +63,7 @@ export default function Home() {
     const numberDone = task.filter((user) => user.checked === true);
     return numberDone.length;
   }
+  
   function checkIftheIdISChecked(id) {
     const numberDone = task.find((user) => user.id === id);
     if (!numberDone.checked === true) {
