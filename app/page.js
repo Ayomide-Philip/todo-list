@@ -52,7 +52,7 @@ export default function Home() {
     addNewTaskFromBtn((task) => {
       return task.map((user) => {
         if (user.id === specifyId) {
-          return { ...user, checked: !user.checked };
+          return { ...user, checked: !user.checked, time: getCurrentTime() };
         }
         return user;
       });
@@ -63,7 +63,7 @@ export default function Home() {
     const numberDone = task.filter((user) => user.checked === true);
     return numberDone.length;
   }
-  
+
   function checkIftheIdISChecked(id) {
     const numberDone = task.find((user) => user.id === id);
     if (!numberDone.checked === true) {
