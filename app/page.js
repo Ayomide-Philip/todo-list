@@ -91,13 +91,14 @@ export default function Home() {
           newTask={newTask}
         />
 
-        <div id="taskList" className="space-y-4 my-6">
+        <div id="taskList" className="space-y-4 my-6 w-full">
           {task.map(({ id, task, checked, time }) => (
             <div
               key={id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-gray-800 border border-gray-700 hover:border-blue-400 transition-all duration-300"
+              className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 p-4 rounded-xl bg-gray-800 border border-gray-700 hover:border-blue-400 hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 w-full overflow-hidden"
             >
-              <div className="flex items-start sm:items-center flex-1">
+              {/* Checkbox + Task Text */}
+              <div className="flex items-start sm:items-center flex-1 min-w-0">
                 <input
                   id={id}
                   onChange={() => {
@@ -106,26 +107,25 @@ export default function Home() {
                   }}
                   defaultChecked={checked}
                   type="checkbox"
-                  className="h-5 w-5 mt-1 sm:mt-0 mr-3 rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500"
+                  className="h-5 w-5 mt-1 sm:mt-0 mr-3 shrink-0 rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500 transition duration-200"
                 />
                 <span
-                  className={`text-lg ${
-                    checked ? "line-through text-gray-300" : ""
+                  className={`text-base sm:text-lg break-words w-full ${
+                    checked ? "line-through text-gray-300" : "text-gray-100"
                   }`}
                 >
                   {task}
                 </span>
               </div>
 
-              <div className="flex justify-between items-center sm:justify-end sm:items-center w-full sm:w-auto">
-                <span className="bg-gray-700 text-xs text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
+              {/* Time + Delete Button */}
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-3">
+                <span className="bg-gray-700 text-xs font-semibold text-gray-300 px-3 py-1 rounded-full whitespace-nowrap">
                   {time}
                 </span>
-
                 <button
-                  id={id}
                   onClick={() => deleteElement(id)}
-                  className="ml-3 text-gray-400 hover:text-pink-500 transition"
+                  className="text-gray-400 hover:text-pink-500 transition"
                   title="Delete"
                 >
                   <svg
