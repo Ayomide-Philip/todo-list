@@ -24,7 +24,7 @@ export default function Home() {
 
   function addTask() {
     toast.loading("Adding new Task");
-    if (newTask !== "") {
+    if (newTask.trim() !== "") {
       var taskId = 0;
       if (task.length == 0) {
         taskId = 1;
